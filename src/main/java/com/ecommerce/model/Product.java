@@ -47,7 +47,8 @@ public class Product extends BaseEntity {
     @Column(name = "category_id")
     private Long categoryId;
 
-    public Product(String name, String description, String thumbnail, Integer price, Integer quantity, Integer numberOfSale, Float rating, Long categoryId) {
+    public Product(String name, String description, String thumbnail, Integer price, Integer quantity,
+            Integer numberOfSale, Float rating, Long categoryId) {
         this.name = name;
         this.description = description;
         this.thumbnail = thumbnail;
