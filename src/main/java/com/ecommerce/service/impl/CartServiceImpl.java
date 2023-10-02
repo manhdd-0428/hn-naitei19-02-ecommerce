@@ -46,8 +46,7 @@ public class CartServiceImpl extends BaseService implements CartService {
 			cartDetailDTOs.add(i, new CartDetailDTO(detail));
 		}
 
-		CartDTO cartDTO = new CartDTO(cart, cartDetailDTOs);
-		return cartDTO;
+		return getMappedCartDTO(cart);
 	}
 
 	@Override

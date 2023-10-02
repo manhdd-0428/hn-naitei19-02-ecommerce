@@ -87,7 +87,6 @@ function removeCartItem(cartId, productId) {
             element.remove();
           }
         });
-        $(".num_of_products").text(Number($(".num_of_products").text()) - 1);
         $("#update-cart-success").show();
         $("#update-cart-fail").hide();
         setTimeout(() => {
@@ -126,4 +125,44 @@ function formatPrice(price) {
 
 function returnPrice(price) {
   return parseInt(price.replace(/\./g, ""));
+}
+
+const checkOuts = $(".check-item");
+const checkAll = $(".check-all");
+
+checkAll.on("click", () => {
+  if (checkAll.prop("checked")) {
+    checkOuts.each((index, element) => {
+      $(element).prop("checked", true);
+    });
+  } else {
+    checkOuts.each((index, element) => {
+      $(element).prop("checked", false);
+    });
+  }
+});
+
+checkOuts.each((index, element) => {
+  $(element).on("click", () => {
+    if (!$(element).prop("checked")) {
+      checkAll.prop("checked", false);
+    }
+  });
+});
+
+function checkOut() {
+  const checkOutForm = $("#checkout-form");
+  const checkedItems = $(".check-item:checked");
+  const dataObject = checkedItems
+    .map((index, element) => {
+      return parseInt($(element).attr("data-item-id"));
+    })
+    .get();
+  if (dataObject.length == 0) {
+    alert("No item selected!");
+    return;
+  }
+  const data = JSON.stringify(dataObject);
+  checkOutForm.append(`<input type="hidden" name="itemIds" value='${data}'/>`);
+  checkOutForm.submit();
 }
